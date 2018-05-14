@@ -33,7 +33,7 @@ public class PresenterLogicXuLyMenu implements IPresenterXulyMenu {
         //end method get
 
         //method post
-        String duongdan="http://192.168.10.104/weblazada/loaisanpham.php";
+        String duongdan="http://192.168.111.128/weblazada/loaisanpham.php";
         HashMap<String,String> hsMaLoaiCha =new HashMap<>();
         hsMaLoaiCha.put("maloaicha","0");
         attrs.add(hsMaLoaiCha);

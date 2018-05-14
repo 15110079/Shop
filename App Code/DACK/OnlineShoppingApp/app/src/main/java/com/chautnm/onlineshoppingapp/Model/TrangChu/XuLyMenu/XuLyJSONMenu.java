@@ -49,7 +49,7 @@ public class XuLyJSONMenu {
         List<HashMap<String,String>> attrs = new ArrayList<>();
         String dataJSON="";
         //method post
-        String duongdan="http://192.168.10.104/weblazada/loaisanpham.php";
+        String duongdan="http://192.168.111.128/weblazada/loaisanpham.php";
         hsMaLoaiCha.put("maloaicha",String.valueOf(maloaisp));
         attrs.add(hsMaLoaiCha);
         DownloadJSON downloadJSON = new DownloadJSON(duongdan,attrs);
@@ -61,7 +61,8 @@ public class XuLyJSONMenu {
 
 
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            e.printStackTrace()
+            ;
         } catch (ExecutionException e) {
             e.printStackTrace();
         }

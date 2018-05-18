@@ -2,6 +2,7 @@ package com.chautnm.onlineshoppingapp.Model.TrangChu.XuLyMenu;
 
 import com.chautnm.onlineshoppingapp.ConnectInternet.DownloadJSON;
 import com.chautnm.onlineshoppingapp.Model.ObjectClass.LoaiSanPham;
+import com.chautnm.onlineshoppingapp.View.TrangChu.TrangChuActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,22 +45,31 @@ public class XuLyJSONMenu {
     }
 
     public List<LoaiSanPham> LayLoaiSPTheoMaLoai(int maloaisp){
+        //
         List<LoaiSanPham> loaiSanPhams=new ArrayList<>();
-        HashMap<String,String> hsMaLoaiCha =new HashMap<>();
         List<HashMap<String,String>> attrs = new ArrayList<>();
         String dataJSON="";
+
         //method post
-        String duongdan="http://192.168.111.128/weblazada/loaisanpham.php";
+       // String duongdan="http://10.188.0.208/weblazada/loaisanpham.php";
+        String duongdan = TrangChuActivity.SERVER_NAME;
+
+        HashMap<String,String> hsHam =new HashMap<>();
+        hsHam.put("ham","LayDanhSachCacThuongHieuLon");
+
+        HashMap<String,String> hsMaLoaiCha =new HashMap<>();
         hsMaLoaiCha.put("maloaicha",String.valueOf(maloaisp));
+
+
         attrs.add(hsMaLoaiCha);
+        attrs.add(hsHam);
+
         DownloadJSON downloadJSON = new DownloadJSON(duongdan,attrs);
         downloadJSON.execute();
         try{
             dataJSON=downloadJSON.get();
             XuLyJSONMenu xuLyJSONMenu=new XuLyJSONMenu();
             loaiSanPhams=xuLyJSONMenu.ParserJSONMenu(dataJSON);
-
-
         } catch (InterruptedException e) {
             e.printStackTrace()
             ;

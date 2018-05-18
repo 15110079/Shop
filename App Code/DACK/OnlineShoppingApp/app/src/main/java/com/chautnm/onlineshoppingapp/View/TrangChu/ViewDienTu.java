@@ -1,6 +1,7 @@
 package com.chautnm.onlineshoppingapp.View.TrangChu;
 
 import com.chautnm.onlineshoppingapp.Model.ObjectClass.DienTu;
+import com.chautnm.onlineshoppingapp.Model.ObjectClass.ThuongHieu;
 
 import java.util.List;
 
@@ -9,5 +10,5 @@ import java.util.List;
  */
 
 public interface ViewDienTu {
-    void HienThiDanhSach (List<DienTu> dienTus);
+    void HienThiDanhSach (List<ThuongHieu> thuongHieus);
 }

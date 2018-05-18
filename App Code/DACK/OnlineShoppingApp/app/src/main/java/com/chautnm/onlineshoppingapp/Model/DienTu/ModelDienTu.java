@@ -20,7 +20,7 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class ModelDienTu {
-    public List<ThuongHieu> LayDanhSachThuongHieuLon(String tenham){
+    public List<ThuongHieu> LayDanhSachThuongHieuLon(){
         List<ThuongHieu> thuongHieuList = new ArrayList<>();
 
         List<HashMap<String,String>> attrs = new ArrayList<>();
@@ -29,7 +29,7 @@ public class ModelDienTu {
         String duongdan = TrangChuActivity.SERVER_NAME;
 
         HashMap<String,String> hsHam = new HashMap<>();
-        hsHam.put("ham",tenham);
+        hsHam.put("ham","LayDanhSachCacThuongHieuLon");
 
         attrs.add(hsHam);
 

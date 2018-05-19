@@ -26,7 +26,7 @@ public class PresenterLogicDienTu implements IPresenterDienTu {
     public void LayDanhSachDienTu() {
         List<ThuongHieu> thuongHieuList = modelDienTu.LayDanhSachThuongHieuLon();
         List<SanPham> sanPhamList=modelDienTu.LayDanhSachSanPhamTOP();
-        if(thuongHieuList.size() > 0) {
+        if(thuongHieuList.size() > 0 && sanPhamList.size()> 0) {
             viewDienTu.HienThiDanhSach(thuongHieuList,sanPhamList);
         }
     }

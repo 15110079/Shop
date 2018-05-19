@@ -3,7 +3,6 @@ package com.chautnm.onlineshoppingapp.Model.DienTu;
 import com.chautnm.onlineshoppingapp.ConnectInternet.DownloadJSON;
 import com.chautnm.onlineshoppingapp.Model.ObjectClass.SanPham;
 import com.chautnm.onlineshoppingapp.Model.ObjectClass.ThuongHieu;
-import com.chautnm.onlineshoppingapp.Model.TrangChu.XuLyMenu.XuLyJSONMenu;
 import com.chautnm.onlineshoppingapp.View.TrangChu.TrangChuActivity;
 
 import org.json.JSONArray;
@@ -20,6 +19,55 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class ModelDienTu {
+
+    public List<SanPham> LayDanhSachSanPhamTOP(){
+
+        List<SanPham> sanPhamList = new ArrayList<>();
+
+        List<HashMap<String,String>> attrs = new ArrayList<>();
+        String dataJSON = "";
+
+        String duongdan = TrangChuActivity.SERVER_NAME;
+
+        HashMap<String,String> hsHam = new HashMap<>();
+        hsHam.put("ham","LayDanhSachTopDienThoaiVaMayTinhBang");
+
+        attrs.add(hsHam);
+
+        DownloadJSON downloadJSON = new DownloadJSON(duongdan,attrs);
+        //end phương thức post
+        downloadJSON.execute();
+
+        try {
+            dataJSON = downloadJSON.get();
+
+            JSONObject jsonObject = new JSONObject(dataJSON);
+            JSONArray jsonArrayDanhSachSanPham = jsonObject.getJSONArray("TOPDIENTHOAI&MAYTINHBANG");
+            int dem = jsonArrayDanhSachSanPham.length();
+
+            for (int i = 0; i<dem; i++){
+                SanPham sanPham = new SanPham();
+                JSONObject object = jsonArrayDanhSachSanPham.getJSONObject(i);
+
+                sanPham.setMASP(object.getInt("MASP"));
+                sanPham.setTENSP(object.getString("TENSP"));
+                sanPham.setGIA(object.getInt("GIATIEN"));
+                sanPham.setANHLON(object.getString("HINHSANPHAM"));
+
+                sanPhamList.add(sanPham);
+            }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return sanPhamList;
+    }
+
     public List<ThuongHieu> LayDanhSachThuongHieuLon(){
         List<ThuongHieu> thuongHieuList = new ArrayList<>();
 

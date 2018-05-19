@@ -26,8 +26,8 @@ import java.util.List;
  */
 
 public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu {
-    public static final String SERVER_NAME = "http://192.168.1.110/weblazada/loaisanpham.php";
-    public static final String SERVER= "http://192.168.1.110/weblazada";
+    public static final String SERVER_NAME = "http://192.168.88.169/weblazada/loaisanpham.php";
+    public static final String SERVER= "http://192.168.88.169/weblazada";
 
 
     Toolbar toolbar;

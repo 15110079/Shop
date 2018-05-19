@@ -2,6 +2,7 @@ package com.chautnm.onlineshoppingapp.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +56,8 @@ public class AdapterDienTu extends RecyclerView.Adapter<AdapterDienTu.ViewHolder
     @Override
     public void onBindViewHolder(AdapterDienTu.ViewHolderDienTu holder, int position) {
         DienTu dienTu = dienTuList.get(position);
+
+        //Xử lý hiển thị danh sách thương hiệu lớn (RecyclerView Thương Hiệu Lớn )
         AdapterThuongHieuLon adapterThuongHieuLon = new AdapterThuongHieuLon(context,dienTu.getThuongHieus());
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(context,3, GridLayoutManager.HORIZONTAL,false);
@@ -62,6 +65,14 @@ public class AdapterDienTu extends RecyclerView.Adapter<AdapterDienTu.ViewHolder
         holder.recyclerViewTHuongHieuLon.setLayoutManager(layoutManager);
         holder.recyclerViewTHuongHieuLon.setAdapter(adapterThuongHieuLon);
         adapterThuongHieuLon.notifyDataSetChanged();
+
+        //Xử lý hiển thị danh sách top sản phẩm (RecyclerView Top sản phẩm )
+        AdapterTopDienThoaiDienTu adapterTopDienThoaiDienTu = new AdapterTopDienThoaiDienTu(context,dienTu.getSanPhams());
+
+        RecyclerView.LayoutManager layoutManagerTop = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
+
+        holder.recyclerViewTopSanPham.setLayoutManager(layoutManagerTop);
+        holder.recyclerViewTopSanPham.setAdapter(adapterTopDienThoaiDienTu);
     }
 
     @Override

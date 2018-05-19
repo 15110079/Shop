@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.chautnm.onlineshoppingapp.Adapter.AdapterDienTu;
 import com.chautnm.onlineshoppingapp.Model.ObjectClass.DienTu;
+import com.chautnm.onlineshoppingapp.Model.ObjectClass.SanPham;
 import com.chautnm.onlineshoppingapp.Model.ObjectClass.ThuongHieu;
 import com.chautnm.onlineshoppingapp.Presenter.TrangChu_DienTu.PresenterLogicDienTu;
 import com.chautnm.onlineshoppingapp.R;
@@ -46,9 +47,10 @@ public class FragmentDienTu extends Fragment implements ViewDienTu{
     }
 
     @Override
-    public void HienThiDanhSach(List<ThuongHieu> thuongHieus) {
+    public void HienThiDanhSach(List<ThuongHieu> thuongHieus, List<SanPham> sanPhams) {
         DienTu dienTu= new DienTu();
         dienTu.setThuongHieus(thuongHieus);
+        dienTu.setSanPhams(sanPhams);
         dienTuList.add(dienTu);
 
         AdapterDienTu adapterDienTu = new AdapterDienTu(getContext(),dienTuList);

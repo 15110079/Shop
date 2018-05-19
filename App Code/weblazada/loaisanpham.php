@@ -10,6 +10,9 @@
 			case 'LayDanhSachCacThuongHieuLon':
 				$ham();
 				break;
+			case 'LayDanhSachTopDienThoaiVaMayTinhBang':
+				$ham(); 
+				break;
 
 		}
 
@@ -66,6 +69,48 @@
 
 		echo "}";
 	}
+	function LayDanhSachTopDienThoaiVaMayTinhBang(){
+		global $conn;
+
+		//truy vấn của điện thoại
+		$truyvancha = "SELECT *  FROM loaisanpham lsp, sanpham sp WHERE lsp.TENLOAISP LIKE 'điện thoại%' AND lsp.MALOAISP = sp.MALOAISP ORDER BY sp.LUOTMUA DESC LIMIT 10";
+		$ketqua = mysqli_query($conn,$truyvancha);
+		$chuoijson = array();
+
+		echo "{";
+		echo "\"TOPDIENTHOAI&MAYTINHBANG\":";
+		if($ketqua){
+			while ($dong=mysqli_fetch_array($ketqua)) {
+			
+				
+				//cách 2
+				array_push($chuoijson, array("MASP"=>$dong["MASP"],'TENSP' => $dong["TENSP"],'GIATIEN'=>$dong["GIA"],'HINHSANPHAM'=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dong["ANHLON"]));
+				//end cách 2
+			}
+
+			// echo json_encode($chuoijson,JSON_UNESCAPED_UNICODE);
+		}
+
+		//truy vấn các sản phẩm là máy tính bảng
+		$truyvancha = "SELECT *  FROM loaisanpham lsp, sanpham sp WHERE lsp.TENLOAISP LIKE 'máy tính bảng%' AND lsp.MALOAISP = sp.MALOAISP ORDER BY sp.LUOTMUA DESC LIMIT 10";
+		$ketquamtb = mysqli_query($conn,$truyvancha);
+		
+		if($ketquamtb){
+			while ($dongmtb=mysqli_fetch_array($ketquamtb)) {
+			
+			
+				//cách 2
+				array_push($chuoijson, array("MASP"=>$dongmtb["MASP"],'TENSP' => $dongmtb["TENSP"],'GIATIEN'=>$dongmtb["GIA"],'HINHSANPHAM'=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dong["ANHLON"]));
+				//end cách 2
+			}
+
+			
+		}
+
+		echo json_encode($chuoijson,JSON_UNESCAPED_UNICODE);
+		echo "}";
+	}
+
 
 
 ?>

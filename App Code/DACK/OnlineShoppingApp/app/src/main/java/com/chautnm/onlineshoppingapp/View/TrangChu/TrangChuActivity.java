@@ -3,16 +3,19 @@ package com.chautnm.onlineshoppingapp.View.TrangChu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 
 import com.chautnm.onlineshoppingapp.Adapter.ExpandAdapter;
 import com.chautnm.onlineshoppingapp.Adapter.ViewPagerAdapter;
@@ -27,7 +30,7 @@ import java.util.List;
  * Created by TOSHIBA on 5/4/2018.
  */
 
-public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu {
+public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu, AppBarLayout.OnOffsetChangedListener{
     public static final String SERVER_NAME = "http://192.168.1.110/weblazada/loaisanpham.php";
     public static final String SERVER= "http://192.168.1.110/weblazada";
 
@@ -38,6 +41,9 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle drawerToggle;
     ExpandableListView expandableListView;
+    CollapsingToolbarLayout collapsingToolbarLayout;
+    AppBarLayout appBarLayout;
+    Menu menu;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,10 +51,12 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu 
         setContentView(R.layout.trangchu_layout);
 
         toolbar= findViewById(R.id.toolbar);
-        tabLayout = findViewById(R.id.tablayout);
+        tabLayout = findViewById(R.id.tabs);
         viewPager=findViewById(R.id.viewpager);
         drawerLayout=findViewById(R.id.drawerLayout);
         expandableListView=findViewById(R.id.expandMenu);
+        collapsingToolbarLayout=findViewById(R.id.collapsing_toolbar);
+        appBarLayout=findViewById(R.id.appbar);
 
         //tao su kien open/close menu da cap
         drawerToggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close);
@@ -68,6 +76,9 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu 
 
         PresenterLogicXuLyMenu LogicXuLyMenu=new PresenterLogicXuLyMenu(this);
         LogicXuLyMenu.LayDanhSachMenu();
+
+        //set sự kiện cho appBar
+        appBarLayout.addOnOffsetChangedListener(this);
     }
 
     @Override
@@ -98,5 +109,19 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu 
         ExpandAdapter expandAdapter =new ExpandAdapter(this,loaiSanPhamList);
         expandableListView.setAdapter(expandAdapter);
         expandAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        if(collapsingToolbarLayout.getHeight() + verticalOffset <=  1.5 * ViewCompat.getMinimumHeight(collapsingToolbarLayout)){
+            LinearLayout linearLayout = appBarLayout.findViewById(R.id.lnSearch);
+            linearLayout.animate().alpha(0).setDuration(200);
+
+        }else{
+            LinearLayout linearLayout = appBarLayout.findViewById(R.id.lnSearch);
+            linearLayout.animate().alpha(1).setDuration(200);
+
+        }
+
     }
 }

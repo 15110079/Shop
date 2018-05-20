@@ -28,6 +28,13 @@
             </intent-filter>
 
         </activity>
+        <activity android:name=".View.DangNhap.DangNhapActivity"
+            android:screenOrientation="portrait"
+            android:label="Đăng nhập/ Đăng ký">
+
+
+        </activity>
+
     </application>
 
 

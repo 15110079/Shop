@@ -1,5 +1,6 @@
 package com.chautnm.onlineshoppingapp.View.TrangChu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -18,6 +19,7 @@ import com.chautnm.onlineshoppingapp.Adapter.ViewPagerAdapter;
 import com.chautnm.onlineshoppingapp.Model.ObjectClass.LoaiSanPham;
 import com.chautnm.onlineshoppingapp.Presenter.TrangChu.XuLyMenu.PresenterLogicXuLyMenu;
 import com.chautnm.onlineshoppingapp.R;
+import com.chautnm.onlineshoppingapp.View.DangNhap.DangNhapActivity;
 
 import java.util.List;
 
@@ -78,6 +80,12 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu 
     public boolean onOptionsItemSelected(MenuItem item) {
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
+        }
+        int id = item.getItemId();
+        switch (id){
+            case R.id.itDangNhap:
+                Intent iDangNhap = new Intent(this, DangNhapActivity.class);
+                startActivity(iDangNhap);
         }
         return true;
     }

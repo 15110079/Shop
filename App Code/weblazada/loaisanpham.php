@@ -13,9 +13,6 @@
 			case 'LayDanhSachTopDienThoaiVaMayTinhBang':
 				$ham(); 
 				break;
-			case 'LayDanhSachTopPhuKien':
-				$ham(); 
-				break;
 
 		}
 
@@ -113,40 +110,5 @@
 		echo json_encode($chuoijson,JSON_UNESCAPED_UNICODE);
 		echo "}";
 	}
-	function LayDanhSachTopPhuKien(){
-		global $conn;
-
-		//lấy danh sách phụ kiện cha
-		$truyvancha = "SELECT *  FROM loaisanpham lsp WHERE lsp.TENLOAISP LIKE 'phụ kiện điện thoại%'";
-		$ketqua = mysqli_query($conn,$truyvancha);
-		$chuoijson = array();
-
-		echo "{";
-		echo "\"TOPPHUKIEN\":";
-		if($ketqua){
-			while ($dong=mysqli_fetch_array($ketqua)) {
-				
-				//Lấy danh sách phụ kiện con
-				$truyvanphukiencon = "SELECT *  FROM loaisanpham lsp, sanpham sp WHERE lsp.MALOAI_CHA = ".$dong["MALOAISP"]." AND lsp.MALOAISP = sp.MALOAISP ORDER BY sp.LUOTMUA DESC LIMIT 10";
-		
-				$ketquacon = mysqli_query($conn,$truyvanphukiencon);	
-				
-				if($ketquacon){
-					while ($dongphukiencon = mysqli_fetch_array($ketquacon)) {
-						array_push($chuoijson, array("MASP"=>$dongphukiencon["MASP"],'TENSP' => $dongphukiencon["TENSP"],'GIATIEN'=>$dongphukiencon["GIA"],'HINHSANPHAM'=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongphukiencon["ANHLON"]));
-				
-					}
-				}
-				
-			}
-
-			
-		}
-
-		echo json_encode($chuoijson,JSON_UNESCAPED_UNICODE);
-		echo "}";
-	}
-
-
 
 ?>

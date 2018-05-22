@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 
 import com.chautnm.onlineshoppingapp.Adapter.ExpandAdapter;
 import com.chautnm.onlineshoppingapp.Adapter.ViewPagerAdapter;
+import com.chautnm.onlineshoppingapp.Model.DangNhap_DangKy.ModelDangNhap;
 import com.chautnm.onlineshoppingapp.Model.ObjectClass.LoaiSanPham;
 import com.chautnm.onlineshoppingapp.Presenter.TrangChu.XuLyMenu.PresenterLogicXuLyMenu;
 import com.chautnm.onlineshoppingapp.R;
@@ -44,6 +45,8 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
     CollapsingToolbarLayout collapsingToolbarLayout;
     AppBarLayout appBarLayout;
     Menu menu;
+    ModelDangNhap modelDangNhap;
+    MenuItem itemDangNhap,menuITDangXuat;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,14 +79,28 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
 
         PresenterLogicXuLyMenu LogicXuLyMenu=new PresenterLogicXuLyMenu(this);
         LogicXuLyMenu.LayDanhSachMenu();
+        modelDangNhap = new ModelDangNhap();
 
         //set sự kiện cho appBar
         appBarLayout.addOnOffsetChangedListener(this);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.menutrangchu,menu);
+        this.menu = menu;
+
+        itemDangNhap = menu.findItem(R.id.itDangNhap);
+        menuITDangXuat = menu.findItem(R.id.itDangXuat);
+
+        String tennv = modelDangNhap.LayCachedDangNhap(this);
+        if(!tennv.equals("")){
+            itemDangNhap.setTitle(tennv);
+        }
+        if(!tennv .equals("")){
+            menuITDangXuat.setVisible(true);
+        }
+
         return true;
     }
 
@@ -95,8 +112,18 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
         int id = item.getItemId();
         switch (id){
             case R.id.itDangNhap:
-                Intent iDangNhap = new Intent(this, DangNhapActivity.class);
-                startActivity(iDangNhap);
+                if(modelDangNhap.LayCachedDangNhap(this).equals("")){
+                    Intent iDangNhap = new Intent(this, DangNhapActivity.class);
+                    startActivity(iDangNhap);
+                };break;
+            case R.id.itDangXuat:
+                if(!modelDangNhap.LayCachedDangNhap(this).equals("")){
+                    modelDangNhap.CapNhatCachedDangNhap(this,"");
+                    this.menu.clear();
+                    this.onCreateOptionsMenu(this.menu);
+                }
+                break;
+
         }
         return true;
     }

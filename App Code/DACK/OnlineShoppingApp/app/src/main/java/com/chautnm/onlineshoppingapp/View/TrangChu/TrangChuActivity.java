@@ -22,7 +22,7 @@ import com.chautnm.onlineshoppingapp.Adapter.ViewPagerAdapter;
 import com.chautnm.onlineshoppingapp.Model.ObjectClass.LoaiSanPham;
 import com.chautnm.onlineshoppingapp.Presenter.TrangChu.XuLyMenu.PresenterLogicXuLyMenu;
 import com.chautnm.onlineshoppingapp.R;
-import com.chautnm.onlineshoppingapp.View.DangNhap.DangNhapActivity;
+import com.chautnm.onlineshoppingapp.View.DangNhap_DangKy.DangNhapActivity;
 
 import java.util.List;
 

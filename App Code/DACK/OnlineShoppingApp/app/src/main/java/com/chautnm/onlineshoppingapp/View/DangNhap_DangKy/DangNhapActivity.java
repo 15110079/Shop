@@ -1,4 +1,4 @@
-package com.chautnm.onlineshoppingapp.View.DangNhap;
+package com.chautnm.onlineshoppingapp.View.DangNhap_DangKy;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

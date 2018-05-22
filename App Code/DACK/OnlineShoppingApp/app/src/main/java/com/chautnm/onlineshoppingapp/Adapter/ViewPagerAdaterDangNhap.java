@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.chautnm.onlineshoppingapp.View.DangNhap.Fragment.FragmentDangKy;
-import com.chautnm.onlineshoppingapp.View.DangNhap.Fragment.FragmentDangNhap;
+import com.chautnm.onlineshoppingapp.View.DangNhap_DangKy.Fragment.FragmentDangKy;
+import com.chautnm.onlineshoppingapp.View.DangNhap_DangKy.Fragment.FragmentDangNhap;
 
 /**
  * Created by TOSHIBA on 5/20/2018.

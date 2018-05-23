@@ -9,6 +9,36 @@ import java.util.List;
 public class DienTu {
     List<ThuongHieu> thuongHieus;
     List<SanPham> sanPhams;
+    String HinhSanPham;
+    boolean thuonghieu;
+    String tennoibat,tentopnoibat;
+
+
+    public String getTennoibat() {
+        return tennoibat;
+    }
+
+    public void setTennoibat(String tennoibat) {
+        this.tennoibat = tennoibat;
+    }
+
+    public String getTentopnoibat() {
+        return tentopnoibat;
+    }
+
+    public void setTentopnoibat(String tentopnoibat) {
+        this.tentopnoibat = tentopnoibat;
+    }
+
+
+
+    public boolean isThuonghieu() {
+        return thuonghieu;
+    }
+
+    public void setThuonghieu(boolean thuonghieu) {
+        this.thuonghieu = thuonghieu;
+    }
 
     public String getHinhSanPham() {
         return HinhSanPham;
@@ -17,8 +47,6 @@ public class DienTu {
     public void setHinhSanPham(String hinhSanPham) {
         HinhSanPham = hinhSanPham;
     }
-
-    String HinhSanPham;
 
     public List<ThuongHieu> getThuongHieus() {
         return thuongHieus;

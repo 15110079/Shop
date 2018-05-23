@@ -17,5 +17,6 @@
     <color name="colorSliderInActive">#8095a1</color>
     <color name="colorPink">#f24646</color>
     <color name="colorBlack2">#191717</color>
+    <color name="bgToolbar">#183545</color>
 
 </resources>

@@ -1,7 +1,9 @@
 package com.chautnm.onlineshoppingapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 
 import com.chautnm.onlineshoppingapp.Model.ObjectClass.ThuongHieu;
 import com.chautnm.onlineshoppingapp.R;
+import com.chautnm.onlineshoppingapp.View.HienThiSanPhamTheoDanhMuc.HienThiSanPhamTheoDanhMucActivity;
+import com.chautnm.onlineshoppingapp.View.TrangChu.TrangChuActivity;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -24,10 +28,11 @@ import java.util.List;
 public class AdapterThuongHieuLon extends RecyclerView.Adapter<AdapterThuongHieuLon.ViewHolderThuongHieu> {
     Context context;
     List<ThuongHieu> thuongHieus;
-
-    public AdapterThuongHieuLon(Context context, List<ThuongHieu> thuongHieus){
+    boolean kiemtra;
+    public AdapterThuongHieuLon(Context context, List<ThuongHieu> thuongHieus, boolean kiemtra){
         this.context = context;
         this.thuongHieus = thuongHieus;
+        this.kiemtra= kiemtra;
     }
 
 
@@ -56,8 +61,21 @@ public class AdapterThuongHieuLon extends RecyclerView.Adapter<AdapterThuongHieu
 
     @Override
     public void onBindViewHolder(final AdapterThuongHieuLon.ViewHolderThuongHieu holder, int position) {
-        ThuongHieu thuongHieu = thuongHieus.get(position);
+        final ThuongHieu thuongHieu = thuongHieus.get(position);
         holder.txtTieuDeThuongHieu.setText(thuongHieu.getTENTHUONGHIEU());
+
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                        Intent iHienThiSanPhamTheoDanhMuc =new Intent(context,HienThiSanPhamTheoDanhMucActivity.class);
+                        iHienThiSanPhamTheoDanhMuc.putExtra("MALOAI",thuongHieu.getMATHUONGHIEU());
+                        iHienThiSanPhamTheoDanhMuc.putExtra("TENLOAI",thuongHieu.getTENTHUONGHIEU());
+                        iHienThiSanPhamTheoDanhMuc.putExtra("KIEMTRA",kiemtra);
+                        context.startActivity(iHienThiSanPhamTheoDanhMuc);
+                        //Log.d("click",thuongHieu.getMATHUONGHIEU()+"-"+thuongHieu.getTENTHUONGHIEU());
+            }
+        });
         Picasso.get().load(thuongHieu.getHINHTHUONGHIEU()).
                 resize(120,120).
                 into(holder.imHinhThuongHieu, new Callback() {

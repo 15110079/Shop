@@ -25,10 +25,12 @@ public class AdapterTopDienThoaiDienTu extends RecyclerView.Adapter<AdapterTopDi
 
     Context context;
     List<SanPham> sanPhamList;
+    int layout;
 
-    public AdapterTopDienThoaiDienTu(Context context, List<SanPham> sanPhamList){
+    public AdapterTopDienThoaiDienTu(Context context, int layout,List<SanPham> sanPhamList){
         this.context = context;
         this.sanPhamList = sanPhamList;
+        this.layout=layout;
     }
     public class ViewHolderTopDienThoai extends RecyclerView.ViewHolder {
         ImageView imHinhSanPham;
@@ -38,18 +40,19 @@ public class AdapterTopDienThoaiDienTu extends RecyclerView.Adapter<AdapterTopDi
         public ViewHolderTopDienThoai(View itemView) {
             super(itemView);
 
-            imHinhSanPham = itemView.findViewById(R.id.imTopDienThoaiDienTu);
-            txtTenSP =  itemView.findViewById(R.id.txtTieuDeTopDienThoaiDienTu);
-            txtGiaTien =  itemView.findViewById(R.id.txtGiaDienTu);
-            txtGiamGia =  itemView.findViewById(R.id.txtGiamGiaDienTu);
-            cardView = itemView.findViewById(R.id.cardViewTop);
+
+            imHinhSanPham = (ImageView) itemView.findViewById(R.id.imTopDienThoaiDienTu);
+            txtTenSP = (TextView) itemView.findViewById(R.id.txtTieuDeTopDienThoaiDienTu);
+            txtGiaTien = (TextView) itemView.findViewById(R.id.txtGiaDienTu);
+            txtGiamGia = (TextView) itemView.findViewById(R.id.txtGiamGiaDienTu);
+            cardView = (CardView) itemView.findViewById(R.id.cardView);
         }
     }
 
     @Override
     public ViewHolderTopDienThoai onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.custom_layout_recycler_topdienthoaivamaytinhbang,parent,false);
+        View view = layoutInflater.inflate(layout,parent,false);
 
         ViewHolderTopDienThoai viewHolderTopDienThoai = new ViewHolderTopDienThoai(view);
 

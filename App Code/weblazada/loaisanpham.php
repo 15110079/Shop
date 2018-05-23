@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 	include_once("config.php");
 	$ham = $_POST["ham"];
 
@@ -14,6 +14,17 @@
 				$ham(); 
 				break;
 
+			case 'LayDanhSachSanPhamTheoMaThuongHieu':
+				$ham(); 
+				break;
+
+			case 'LayDanhSachSanPhamTheoMaLoaiDanhMuc':
+				$ham(); 
+				break;
+
+				case 'Lay':
+				$ham(); 
+				break;
 		}
 
 	function LayDanhSachMenu(){
@@ -45,6 +56,51 @@
 
 		mysqli_close($conn);
 	}
+
+ 
+ 	function LayDanhSachSanPhamTheoMaThuongHieu(){
+			global $conn;
+			$chuoijson = array();
+			if(isset($_POST["maloaisp"]) || isset($_GET["limit"])){
+				$maloai = $_POST["maloaisp"];
+				$limit = $_POST["limit"];
+				 
+			}
+			
+			echo "{";
+			echo "\"DANHSACHSANPHAM\":";
+
+			$chuoijson = LayDanhSachSanPhamTheoMaLoaiThuongHieu($conn,$maloai,$chuoijson,$limit);
+			echo json_encode($chuoijson,JSON_UNESCAPED_UNICODE);
+			echo "}";
+
+		}
+
+
+	function LayDanhSachSanPhamTheoMaLoaiDanhMuc(){
+			global $conn;
+			$chuoijson = array();
+
+			if(isset($_POST["maloaisp"]) || isset($_POST["limit"])){
+				$maloai = $_POST["maloaisp"];
+				$limit = $_POST["limit"];
+			}
+			
+			$ketqua = LayDanhSachSanPhamTheoMaLoai($conn,$maloai,$chuoijson,$limit);
+
+			echo "{";
+			echo "\"DANHSACHSANPHAM\":";
+				if($ketqua){
+					while ($dongtienich = mysqli_fetch_array($ketqua)) {
+					array_push($chuoijson, array("MASP"=>$dongtienich["MASP"],'TENSP' => $dongtienich["TENLOAISP"],'GIATIEN'=>$dongtienich["GIA"],'HINHSANPHAM'=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongtienich["ANHLON"],'HINHSANPHAMNHO'=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongtienich["ANHNHO"]));
+					
+				}
+			}				
+			echo json_encode($chuoijson,JSON_UNESCAPED_UNICODE);
+
+			echo "}";
+		
+		}
 
 	function LayDanhSachCacThuongHieuLon(){
 		global $conn;
@@ -109,6 +165,50 @@
 
 		echo json_encode($chuoijson,JSON_UNESCAPED_UNICODE);
 		echo "}";
+	}
+
+	function LayDanhLoaiSanPhamTheoMaLoai($conn,$maloaisp){
+			$truyvancha = "SELECT *  FROM loaisanpham lsp WHERE lsp.MALOAI_CHA = ".$maloaisp;
+			$ketqua = mysqli_query($conn,$truyvancha);
+			
+			
+			return $ketqua;
+			
+		}
+			//lay danh sach san pham theo thuong hieu
+	function LayDanhSachSanPhamTheoMaLoaiThuongHieu($conn,$maloaith,$chuoijson,$limit){
+		
+		$truyvantienich = "SELECT *  FROM thuonghieu th, sanpham sp WHERE th.MATHUONGHIEU = ".$maloaith." AND th.MATHUONGHIEU = sp.MATHUONGHIEU ORDER BY sp.LUOTMUA DESC LIMIT ".$limit.",20";
+		
+		$ketquacon = mysqli_query($conn,$truyvantienich);	
+				
+		if($ketquacon){
+			while ($dongtienich = mysqli_fetch_array($ketquacon)) {
+				array_push($chuoijson, array("MASP"=>$dongtienich["MASP"],'TENSP' => $dongtienich["TENSP"],'GIATIEN'=>$dongtienich["GIA"],'HINHSANPHAM'=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongtienich["ANHLON"],'HINHSANPHAMNHO'=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongtienich["ANHNHO"]));
+				
+			}
+		}
+
+		return $chuoijson;
+	}
+
+		
+
+	function LayDanhSachSanPhamTheoMaLoai($conn,$maloaisp,$chuoijson,$limit){
+		
+		$truyvantienich = "SELECT *  FROM loaisanpham lsp, sanpham sp WHERE lsp.MALOAISP = ".$maloaisp." AND lsp.MALOAISP = sp.MALOAISP ORDER BY sp.LUOTMUA DESC LIMIT ".$limit;
+		
+		$ketquacon = mysqli_query($conn,$truyvantienich);	
+				
+		if($ketquacon){
+			while ($dongtienich = mysqli_fetch_array($ketquacon)) {
+				array_push($chuoijson, array("MASP"=>$dongtienich["MASP"],'TENSP' => $dongtienich["TENLOAISP"],'GIATIEN'=>$dongtienich["GIA"],'HINHSANPHAM'=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongtienich["ANHLON"],'HINHSANPHAMNHO'=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongtienich["ANHNHO"]));
+				
+			}
+		}
+
+		return $chuoijson;
+
 	}
 
 ?>

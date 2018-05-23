@@ -11,7 +11,9 @@ import java.util.List;
  * Created by TOSHIBA on 5/18/2018.
  */
 
-public class PresenterLogicDienTu implements IPresenterDienTu {
+public class
+
+PresenterLogicDienTu implements IPresenterDienTu {
 
     ViewDienTu viewDienTu;
     ModelDienTu modelDienTu;

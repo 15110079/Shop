@@ -17,9 +17,11 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `lazada`
+-- Database: `shop`
 --
-
+DROP DATABASE IF EXISTS shopdb;
+CREATE DATABASE shopdb;
+USE shopdb;
 -- --------------------------------------------------------
 
 --
